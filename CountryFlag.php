@@ -26,6 +26,8 @@ class CountryFlag extends Module
         parent::__construct($config);
     }
 
+    /* --------------------------- Hooks --------------------------- */
+
     /**
      * Implements hook "library.list"
      * @param array $libraries
@@ -53,29 +55,18 @@ class CountryFlag extends Module
      * @param string $code
      * @param array $result
      */
-    public function hookCountryGetAfter(&$code, &$result)
+    public function hookCountryGetAfter($code, &$result)
     {
-        $code = strtolower($code);
-        $images = $this->getFlagImages();
-        if (isset($images[$code]['1x1']) && isset($result['code']) && !isset($result['image'])) {
-            $result['image'] = $images[$code]['1x1'];
-        }
+        $this->setCountryFlag($code, $result);
     }
 
     /**
      * Implements hook "country.list"
-     * @param array $list
+     * @param array $countries
      */
-    public function hookCountryList(array &$list)
+    public function hookCountryList(array &$countries)
     {
-        $images = $this->getFlagImages();
-
-        foreach ($list as $code => &$country) {
-            $code = strtolower($code);
-            if (isset($images[$code]['1x1']) && !isset($country['image'])) {
-                $country['image'] = $images[$code]['1x1'];
-            }
-        }
+        $this->setCountryFlags($countries);
     }
 
     /**
@@ -110,10 +101,12 @@ class CountryFlag extends Module
         $this->getLibrary()->clearCache();
     }
 
+    /* --------------------------- API --------------------------- */
+
     /**
      * Returns an array of country flag images keyed by country code
      */
-    public function getFlagImages()
+    public function getCountryFlags()
     {
         $list = &gplcart_static(__METHOD__);
 
@@ -128,6 +121,37 @@ class CountryFlag extends Module
         }
 
         return $list;
+    }
+
+    /* --------------------------- Helpers --------------------------- */
+
+    /**
+     * Sets a country flag image
+     * @param string $code
+     * @param array $country
+     */
+    protected function setCountryFlag($code, array &$country)
+    {
+        $code = strtolower($code);
+        $images = $this->getCountryFlags();
+        if (isset($images[$code]['1x1']) && !isset($country['image'])) {
+            $country['image'] = $images[$code]['1x1'];
+        }
+    }
+
+    /**
+     * Sets flags for an array of images
+     * @param array $countries
+     */
+    protected function setCountryFlags(array &$countries)
+    {
+        $images = $this->getCountryFlags();
+        foreach ($countries as $code => &$country) {
+            $code = strtolower($code);
+            if (isset($images[$code]['1x1']) && !isset($country['image'])) {
+                $country['image'] = $images[$code]['1x1'];
+            }
+        }
     }
 
 }
