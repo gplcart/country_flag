@@ -9,24 +9,27 @@
 
 namespace gplcart\modules\country_flag;
 
-use gplcart\core\Module,
-    gplcart\core\Config;
+use gplcart\core\Library;
 
 /**
  * Main class for Country flags module
  */
-class CountryFlag extends Module
+class CountryFlag
 {
 
     /**
-     * @param Config $config
+     * Library class instance
+     * @var \gplcart\core\Library $library
      */
-    public function __construct(Config $config)
-    {
-        parent::__construct($config);
-    }
+    protected $library;
 
-    /* --------------------------- Hooks --------------------------- */
+    /**
+     * @param Library $library
+     */
+    public function __construct(Library $library)
+    {
+        $this->library = $library;
+    }
 
     /**
      * Implements hook "library.list"
@@ -74,7 +77,7 @@ class CountryFlag extends Module
      */
     public function hookModuleEnableAfter()
     {
-        $this->getLibrary()->clearCache();
+        $this->library->clearCache();
     }
 
     /**
@@ -82,7 +85,7 @@ class CountryFlag extends Module
      */
     public function hookModuleDisableAfter()
     {
-        $this->getLibrary()->clearCache();
+        $this->library->clearCache();
     }
 
     /**
@@ -90,7 +93,7 @@ class CountryFlag extends Module
      */
     public function hookModuleInstallAfter()
     {
-        $this->getLibrary()->clearCache();
+        $this->library->clearCache();
     }
 
     /**
@@ -98,10 +101,8 @@ class CountryFlag extends Module
      */
     public function hookModuleUninstallAfter()
     {
-        $this->getLibrary()->clearCache();
+        $this->library->clearCache();
     }
-
-    /* --------------------------- API --------------------------- */
 
     /**
      * Returns an array of country flag images keyed by country code
@@ -123,8 +124,6 @@ class CountryFlag extends Module
         return $list;
     }
 
-    /* --------------------------- Helpers --------------------------- */
-
     /**
      * Sets a country flag image
      * @param string $code
@@ -132,10 +131,10 @@ class CountryFlag extends Module
      */
     protected function setCountryFlag($code, array &$country)
     {
-        $code = strtolower($code);
+        $lower_code = strtolower($code);
         $images = $this->getCountryFlags();
-        if (isset($images[$code]['1x1']) && !isset($country['image'])) {
-            $country['image'] = $images[$code]['1x1'];
+        if (isset($images[$lower_code]['1x1']) && !isset($country['image'])) {
+            $country['image'] = $images[$lower_code]['1x1'];
         }
     }
 
