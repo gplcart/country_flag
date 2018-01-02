@@ -14,7 +14,7 @@ use gplcart\core\Library;
 /**
  * Main class for Country flags module
  */
-class Module
+class Main
 {
 
     /**
