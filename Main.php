@@ -38,8 +38,8 @@ class Main
     public function hookLibraryList(array &$libraries)
     {
         $libraries['flag-icon-css'] = array(
-            'name' => /* @text */'Country flags',
-            'description' => /* @text */'A collection of all country flags in SVG',
+            'name' => 'Country flags', // @text
+            'description' => 'A collection of all country flags in SVG', // @text
             'type' => 'asset',
             'module' => 'country_flag',
             'url' => 'https://github.com/lipis/flag-icon-css',
