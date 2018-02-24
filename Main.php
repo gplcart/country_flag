@@ -116,6 +116,7 @@ class Main
         }
 
         $list = array();
+
         foreach (glob(__DIR__ . '/vendor/flag-icon-css/flags/*/*.svg') as $file) {
             $info = pathinfo($file);
             $list[$info['filename']][basename($info['dirname'])] = $file;
@@ -133,6 +134,7 @@ class Main
     {
         $lower_code = strtolower($code);
         $images = $this->getCountryFlags();
+
         if (isset($images[$lower_code]['1x1']) && !isset($country['image'])) {
             $country['image'] = $images[$lower_code]['1x1'];
         }
@@ -145,6 +147,7 @@ class Main
     protected function setCountryFlags(array &$countries)
     {
         $images = $this->getCountryFlags();
+
         foreach ($countries as $code => &$country) {
             $code = strtolower($code);
             if (isset($images[$code]['1x1']) && !isset($country['image'])) {
