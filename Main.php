@@ -44,11 +44,9 @@ class Main
             'module' => 'country_flag',
             'url' => 'https://github.com/lipis/flag-icon-css',
             'download' => 'https://github.com/lipis/flag-icon-css/archive/2.8.0.zip',
-            'version_source' => array(
-                'file' => 'vendor/flag-icon-css/package.json'
-            ),
+            'version' => '2.8.0',
             'files' => array(
-                'vendor/flag-icon-css/css/flag-icon.min.css'
+                'css/flag-icon.min.css'
             ),
         );
     }
@@ -117,7 +115,7 @@ class Main
 
         $list = array();
 
-        foreach (glob(__DIR__ . '/vendor/flag-icon-css/flags/*/*.svg') as $file) {
+        foreach (glob(GC_DIR_VENDOR_ASSET . '/flag-icon-css/flags/*/*.svg') as $file) {
             $info = pathinfo($file);
             $list[$info['filename']][basename($info['dirname'])] = $file;
         }
