@@ -11,8 +11,21 @@
   ],
   "license": "GPL-3.0-or-later",
   "require": {
-    "gplcart/composer-module-installer": "*"
+    "gplcart/composer-module-installer": "^1",
+    "assets/flag-icon-css": "2.8.0"
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+  "repositories": [
+    {
+      "type": "package",
+      "packagist.org": false,
+      "package": {
+        "name": "assets/flag-icon-css",
+        "version": "2.8.0",
+        "dist": {
+          "type": "zip",
+          "url": "https://github.com/lipis/flag-icon-css/archive/2.8.0.zip"
+        }
+      }
+    }
+  ]
 }
