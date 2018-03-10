@@ -9,27 +9,11 @@
 
 namespace gplcart\modules\country_flag;
 
-use gplcart\core\Library;
-
 /**
  * Main class for Country flags module
  */
 class Main
 {
-
-    /**
-     * Library class instance
-     * @var \gplcart\core\Library $library
-     */
-    protected $library;
-
-    /**
-     * @param Library $library
-     */
-    public function __construct(Library $library)
-    {
-        $this->library = $library;
-    }
 
     /**
      * Implements hook "library.list"
@@ -68,38 +52,6 @@ class Main
     public function hookCountryList(array &$countries)
     {
         $this->setCountryFlags($countries);
-    }
-
-    /**
-     * Implements hook "module.enable.after"
-     */
-    public function hookModuleEnableAfter()
-    {
-        $this->library->clearCache();
-    }
-
-    /**
-     * Implements hook "module.disable.after"
-     */
-    public function hookModuleDisableAfter()
-    {
-        $this->library->clearCache();
-    }
-
-    /**
-     * Implements hook "module.install.after"
-     */
-    public function hookModuleInstallAfter()
-    {
-        $this->library->clearCache();
-    }
-
-    /**
-     * Implements hook "module.uninstall.after"
-     */
-    public function hookModuleUninstallAfter()
-    {
-        $this->library->clearCache();
     }
 
     /**
